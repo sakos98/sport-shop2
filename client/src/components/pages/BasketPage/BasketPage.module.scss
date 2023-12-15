@@ -1,0 +1,32 @@
+.price {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.priceDelivery {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.priceEnd {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.positionBasket {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.describe {
+    font-size: 17px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

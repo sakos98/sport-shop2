@@ -1,0 +1,31 @@
+.title {
+    font-size:  60px;
+    text-align: center;
+}
+
+.cardPosition {
+    display: flex;
+    justify-content: center;
+}
+
+.imageposition {
+    display: flex;
+}
+
+.image {
+    width: 400px;
+    justify-content: center;
+}
+
+.description {
+    font-size: 20px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.price {
+    font-size: 17px;
+}
+
+.buttonPosition {
+    padding-top: 23px;
+}

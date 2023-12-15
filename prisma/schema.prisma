@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String @id @default(uuid())
+  name        String
+  price       Float
+  description String
+  photo       String // Zdjęcie główne produktu
+
+  // Dodajemy relację jeden do wielu z obrazami produktu
+  images Image[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[] // Relacja jeden do wielu z zamówieniami
+}
+
+model Order {
+  id        String  @id @default(uuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id]) // Relacja z produktem
+  userId    String // Dodanie pola userId
+  user      User    @relation(fields: [userId], references: [id]) // Relacja z użytkownikiem
+
+  address String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Image {
+  id        String  @id @default(uuid())
+  url       String // Ścieżka do przechowywania zdjęć lub URL do nich
+  product   Product @relation(fields: [productId], references: [id]) // Relacja z produktem
+  productId String // Klucz obcy do produktu
+
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id        String    @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String    @unique
+  role      Role      @default(USER)
+  password  Password?
+  sessions  Session[]
+  orders    Order[]
+}
+
+model Password {
+  id             String @id @default(uuid())
+  hashedPassword String
+  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String @unique
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+}
